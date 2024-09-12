@@ -1,26 +1,22 @@
-#!/usr/bin/env python3
+# lib/testing/teacher_test.py
 
+import pytest
 from teacher import Teacher
-from user import User
-
-my_teacher = Teacher("My", "Teacher")
 
 class TestTeacher:
-    '''Class "Teacher" in teacher.py'''
+    def test_is_class(self):
+        '''is a class with the name "Teacher".'''
+        alice = Teacher(first_name='Alice', last_name='Smith')
+        assert isinstance(alice, Teacher)
+        
+    def test_knowledge_initialization(self):
+        '''initializes with the knowledge list.'''
+        alice = Teacher(first_name='Alice', last_name='Smith')
+        assert len(alice.knowledge) == 8
 
-    def test_is_subclass(self):
-        '''is a subclass of "User".'''
-        assert(User in Teacher.__bases__)
-
-    def test_initializes_with_names(self):
-        '''initializes with first and last name.'''
-        assert((my_teacher.first_name, my_teacher.last_name) == ("My", "Teacher"))
-
-    def test_has_attribute_knowledge(self):
-        '''has an attribute called "knowledge", a list with len > 0.'''
-        assert(isinstance(my_teacher.knowledge, list) and len(my_teacher.knowledge) > 0)
-
-    def test_can_teach(self):
-        '''teaches from list of knowledge.'''
-        my_teacher = Teacher("My", "Teacher")
-        assert(my_teacher.teach() in my_teacher.knowledge)
+    def test_teach_method(self):
+        '''returns a random element from the knowledge list.'''
+        alice = Teacher(first_name='Alice', last_name='Smith')
+        knowledge = alice.knowledge
+        taught_knowledge = alice.teach()
+        assert taught_knowledge in knowledge
